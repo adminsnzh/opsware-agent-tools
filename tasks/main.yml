@@ -41,38 +41,43 @@
       agentVersion: "{{ item | trim }}"
     with_items: "{{ info_value.stdout_lines }}"
     when:
-    - '"agentVersion:" in item'
-    - invoke == "get_agentVersion"
+      - '"agentVersion:" in item'
+      - invoke == "get_agentVersion"
   # return serialNumber
   - name: get-serialNumber
     set_fact:
       serialNumber: "{{ item | trim }}"
     with_items: "{{ info_value.stdout_lines }}"
     when:
-    - '"serialNumber:" in item'
-    - invoke == "get_serialNumber"
-    # return manufacturer
-    - name: get-manufacturer
+      - '"serialNumber:" in item'
+      - invoke == "get_serialNumber"
+  # return manufacturer
+  - name: get-manufacturer
     set_fact:
       manufacturer: "{{ item | trim }}"
     with_items: "{{ info_value.stdout_lines }}"
     when:
-    - '"manufacturer:" in item'
-    - invoke == "manufacturer"
-    # return server use
-    - name: get-serverUse
+      - '"manufacturer:" in item'
+      - invoke == "manufacturer"
+  # return server use
+  - name: get-serverUse
     set_fact:
       serverUse: "{{ item | trim }}"
     with_items: "{{ info_value.stdout_lines }}"
     when:
-    - '"use:" in item'
-    - invoke == "serverUse"
-
+      - '"use:" in item'
+      - invoke == "serverUse"
+    # return deployment stage
+  - name: get-deploymentStage
+    set_fact:
+      deploymentStage: "{{ item | trim }}"
+    with_items: "{{ info_value.stdout_lines }}"
+    when:
+      - '"stage:" in item'
+      - invoke == "deploymentStage"
   when: >
     invoke == "get_agentVersion" or
     invoke == 'get_serialNumber' or
     invoke == 'manufacturer' or
-    invoke == 'serverUse'
-
-
-
+    invoke == 'serverUse' or
+    invoke == 'deploymentStage'
