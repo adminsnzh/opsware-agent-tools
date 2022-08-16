@@ -1,0 +1,9 @@
+# Get Custom form SA
+- name: Get customer
+  shell: /opt/opsware/agent_tools/get_customer.sh
+  register: customer_value
+
+- name: Check empty value
+  assert:
+    that: customer_value | trim != ""
+    fail_msg: "Error: Unable to get customer, please assign a customer first!"

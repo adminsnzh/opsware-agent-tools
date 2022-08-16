@@ -1,0 +1,11 @@
+# Get Custom Attributes form SA
+- name: Get custom attributes
+  shell: /opt/opsware/agent_tools/get_cust_attr.sh {{ item }}
+  register: ca_value
+  with_items: "{{ ca_name }}"
+
+- name: Check empty value
+  assert:
+    that: item.stdout | trim != ""
+    fail_msg: "Error: {{ item }} is empty, please update this CA from SA!"
+  with_items: "{{ ca_value.results }}"

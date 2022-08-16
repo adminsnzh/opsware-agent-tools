@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  remote_user: root
+  # roles:
+  #   - opsware-agent-tools
+
+  tasks:
+    - name: using role
+      import_role:
+        name: opsware-agent-tools
+      vars: 
+        invoke: get_cust_attr
+        ca_name: 
+          - NNIT_EL8_SET_RELEASE
+
+    - name: Get release number form SA
+      set_fact:
+        release: "{{ item.stdout|trim }}"
+      with_items: "{{ ca_value.results }}"
+
+    - name: Print
+      debug:
+        msg: "{{ release }}"

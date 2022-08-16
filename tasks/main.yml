@@ -1,0 +1,26 @@
+---
+# tasks file for opsware-agent-tools
+# Check Agent Tools
+- name: Check agent tools
+  stat:
+    path: "{{ item }}"
+  register: agent_tools_script
+  with_items: "{{ agent_tools }}"
+
+- name: Check empty value
+  assert:
+    that: item.stat.exists
+    fail_msg: "Error: Script {{ item.item }} not found! Please install Agent Tools first!"
+  with_items: "{{ agent_tools_script.results }}"
+
+# return ca_value
+- include_tasks: get_cust_attr.yml
+  tags:
+    - get-cust-attr
+  when: invoke == "get_cust_attr"
+
+# return customer_value
+- include_tasks: get_customer.yml
+  tags:
+    - get-customer
+  when: invoke == "get_customer"

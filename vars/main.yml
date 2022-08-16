@@ -1,0 +1,5 @@
+---
+# vars file for opsware-agent-tools
+agent_tools:
+  - /opt/opsware/agent_tools/get_cust_attr.sh
+  - /opt/opsware/agent_tools/get_customer.sh
