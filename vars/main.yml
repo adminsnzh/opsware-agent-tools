@@ -3,3 +3,5 @@
 agent_tools:
   - /opt/opsware/agent_tools/get_cust_attr.sh
   - /opt/opsware/agent_tools/get_customer.sh
+  - /opt/opsware/agent_tools/get_facility.sh
+  - /opt/opsware/agent_tools/get_info.sh

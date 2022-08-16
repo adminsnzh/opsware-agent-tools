@@ -1,0 +1,9 @@
+# Get facility form SA
+- name: Get customer
+  shell: /opt/opsware/agent_tools/get_facility.sh
+  register: facility_value
+
+- name: Check empty value
+  assert:
+    that: facility_value | trim != ""
+    fail_msg: "Error: Unable to get facility!"

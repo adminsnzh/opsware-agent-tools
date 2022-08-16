@@ -1,0 +1,9 @@
+# Get info form SA
+- name: Get info
+  shell: /opt/opsware/agent_tools/get_info.sh
+  register: info_value
+
+- name: Check empty value
+  assert:
+    that: info_value | trim != ""
+    fail_msg: "Error: Unable to get info!"

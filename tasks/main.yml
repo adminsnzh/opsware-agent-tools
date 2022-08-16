@@ -24,3 +24,45 @@
   tags:
     - get-customer
   when: invoke == "get_customer"
+
+# return facility_value
+- include_tasks: get_facility.yml
+  tags:
+    - get-facility
+  when: invoke == "get_facility"
+
+# return info_value
+- name: get-info
+  block:
+  - include_tasks: get_info.yml
+  - name: get-agentVersion
+    set_fact:
+      agentVersion: "{{ item | trim }}"
+    with_items: "{{ info_value.stdout_lines }}"
+    when:
+    - '"agentVersion:" in item'
+    - invoke == "get_agentVersion"
+
+  - name: get-serialNumber
+    set_fact:
+      serialNumber: "{{ item | trim }}"
+    with_items: "{{ info_value.stdout_lines }}"
+    when:
+    - '"serialNumber:" in item'
+    - invoke == "get_serialNumber"
+    
+    - name: get-manufacturer
+    set_fact:
+      manufacturer: "{{ item | trim }}"
+    with_items: "{{ info_value.stdout_lines }}"
+    when:
+    - '"manufacturer:" in item'
+    - invoke == "manufacturer"
+
+  when: >
+    invoke == "get_agentVersion" or
+    invoke == 'get_serialNumber' or
+    invoke == 'manufacturer'
+
+
+
