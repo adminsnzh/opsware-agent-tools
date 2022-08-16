@@ -1,7 +1,7 @@
 opsware-agent-tools
 =========
 
-Interacting with SA by using of opsware-tools.
+Interacting with SA by using of opsware-agent and agent tools.
 
 Requirements
 ------------
@@ -10,11 +10,6 @@ opsware-agent and agent tools are required. Please make sure they are installed 
 
 Role Variables
 --------------
-
-N/A
-
-Dependencies
-------------
 
 N/A
 
